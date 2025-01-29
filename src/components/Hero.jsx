@@ -14,8 +14,8 @@ function Hero() {
         </h1>
 
         <p className="mt-4 text-lg text-gray-300">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam incidunt placeat quos sequi maxime aperiam ipsa neque, est cumque aut consectetur quisquam. Molestiae ipsum nobis quae sint iste, temporibus distinctio.
-        </p>
+        Full Stack Developer skilled in web development and mentoring, focused on
+        innovation and student success        </p>
 
         <div className="mt-8 space-x-4">
             <button 
