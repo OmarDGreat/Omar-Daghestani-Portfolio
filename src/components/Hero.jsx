@@ -3,7 +3,7 @@ import HeroImage from "../assets/icon.jpg";
 
 function Hero() {
   return (
-    <div className="bg-white dark:bg-black text-black dark:text-white flex flex-col items-center justify-center text-center h-[110vh] px-6">
+    <div className="bg-gray-100 dark:bg-black text-black dark:text-white flex flex-col items-center justify-center text-center h-screen px-6">
       {/* Animated Profile Image */}
       <motion.img
         src={HeroImage}

@@ -60,7 +60,7 @@ const SkillList = ({ title, skills }) => (
 
 function Skills() {
   return (
-    <section className="bg-white dark:bg-gray-900 text-black dark:text-white py-20 min-h-[80vh]" id="skills">
+    <section className="bg-blue-100 dark:bg-gray-900 text-black dark:text-white py-20 min-h-[80vh]" id="skills">
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
         <h2 className="text-4xl font-bold text-center mb-20">My Skills</h2>
         <SkillList title="Frontend Technologies" skills={frontendTechnologies} />

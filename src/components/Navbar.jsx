@@ -6,7 +6,7 @@ import { MdDarkMode } from "react-icons/md";
 const Navbar = () => {
   // Get theme from localStorage or default to 'light'
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("theme") || "light";
+    return localStorage.getItem("theme") || "dark";
   });
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white dark:bg-gray-900 text-black dark:text-white px-8 md:px-16 lg:px-24 fixed w-full top-0 left-0 z-50 shadow-md py-4">      <div className="container py-2 flex justify-center md:justify-between items-center">
+    <nav className="bg-blue-100 dark:bg-gray-900 text-black dark:text-white px-8 md:px-16 lg:px-24 fixed w-full top-0 left-0 z-50 shadow-md py-4">      <div className="container py-2 flex justify-center md:justify-between items-center">
         <div href="#home" className="hover:bg-gray-500 cursor-pointer">
           <IoHomeOutline size={30} />
         </div>
