@@ -12,7 +12,6 @@ function Homepage() {
       <Hero />
       <Skills />
       <Projects />
-      <Contact />
       <Footer />
     </>
   )
