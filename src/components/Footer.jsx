@@ -21,9 +21,6 @@ function Footer() {
           <a href="mailto:omar.daghest@gmail.com">
             <FaEnvelope size={24} className="hover:text-red-500 dark:hover:text-red-300 transition-colors" />
           </a>
-          <a href="https://omar-daghestani.dev" target="_blank" rel="noopener noreferrer">
-            <FaGlobe size={24} className="hover:text-green-500 dark:hover:text-green-300 transition-colors" />
-          </a>
         </div>
 
         {/* Copyright */}
