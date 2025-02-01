@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import HeroImage from "../assets/icon.jpg";
 import Contact from "./Contact";
+import { AiOutlineDownload } from "react-icons/ai";
 
 function Hero() {
-
-  const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false); // Modal State
 
   return (
@@ -51,6 +50,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
         >
+          {/* Contact Button */}
           <button
             onClick={() => setModalOpen(true)}
             className="bg-gradient-to-r from-green-400 to-blue-500 text-white px-6 py-3 rounded-full shadow-md transform transition-transform duration-300 hover:scale-110"
@@ -58,13 +58,19 @@ function Hero() {
             Contact Me
           </button>
 
-          <button className="bg-gradient-to-r from-pink-500 to-yellow-500 text-white px-6 py-3 rounded-full shadow-md transform transition-transform duration-300 hover:scale-110">
-            Resume
-          </button>
+          {/* Download Resume Button */}
+          <a
+            href="/Omar-Daghestani-Resume-2025.pdf"
+            download="Omar-Daghestani-Resume-2025.pdf"
+            className="flex items-center justify-center gap-2 px-6 py-3 rounded-full shadow-md bg-gradient-to-r from-pink-500 to-yellow-500 text-white transition-transform duration-300 hover:scale-110"
+          >
+            <AiOutlineDownload size={20} />
+            Download Resume
+          </a>
         </motion.div>
       </div>
 
-      {/* Contact Modal */}
+      {/* Contact Modal (Appears when modalOpen is true) */}
       {modalOpen && <Contact closeModal={() => setModalOpen(false)} />}
     </>
   );
