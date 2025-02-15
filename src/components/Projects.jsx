@@ -1,18 +1,137 @@
-function Projects() {
-    return (
-      <div className="flex flex-col items-center justify-center py-16 bg-gray-100" id="projects">
-        <h2 className="text-3xl font-bold text-gray-800 mb-10">My Projects</h2>
-  
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 max-w-screen-lg">
-          {[...Array(6)].map((_, index) => (
-            <div key={index} className="flex justify-center items-center bg-white p-10 rounded-lg shadow-lg">
-              <img src="/404.jpg" alt="Project" className="w-72 h-48 object-cover rounded-md" />
+const Projects = () => {
+  const projects = [
+    {
+      title: "E-Commerce Platform",
+      description:
+        "A full-featured online store with shopping cart, payment processing via Stripe, and user authentication. Includes admin dashboard for product management.",
+      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+      githubLink: "https://github.com/...",
+      liveLink: "https://...",
+      image:
+        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      title: "Real-Time Chat App",
+      description:
+        "Instant messaging application with real-time updates, file sharing, and group chat functionality. Features end-to-end encryption for secure communication.",
+      technologies: ["React", "Socket.io", "Firebase", "WebRTC"],
+      githubLink: "https://github.com/...",
+      liveLink: "https://...",
+      image:
+        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      title: "Task Management System",
+      description:
+        "Project management tool with drag-and-drop task organization, team collaboration features, and progress tracking dashboards.",
+      technologies: ["React", "Redux", "PostgreSQL", "Express"],
+      githubLink: "https://github.com/...",
+      liveLink: "https://...",
+      image:
+        "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      title: "Weather Dashboard",
+      description:
+        "Real-time weather forecasting application with interactive maps, location-based services, and severe weather alerts integration.",
+      technologies: ["React", "OpenWeather API", "Mapbox", "TypeScript"],
+      githubLink: "https://github.com/...",
+      liveLink: "https://...",
+      image:
+        "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      title: "Fitness Tracker",
+      description:
+        "Personal fitness application with workout planning, progress tracking, and nutrition monitoring. Includes data visualization and goal setting features.",
+      technologies: ["React Native", "GraphQL", "Node.js", "MongoDB"],
+      githubLink: "https://github.com/...",
+      liveLink: "https://...",
+      image:
+        "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80",
+    },
+    {
+      title: "AI Image Generator",
+      description:
+        "Creative tool that generates unique images using AI algorithms. Features custom style transfer, image manipulation, and social sharing capabilities.",
+      technologies: ["React", "TensorFlow.js", "Python", "AWS"],
+      githubLink: "https://github.com/...",
+      liveLink: "https://...",
+      image:
+        "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80",
+    },
+  ];
+
+  return (
+    <section className="py-20 bg-gray-50 dark:bg-gray-900" id="projects">
+      <div className="container mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center mb-16 dark:text-white">
+          My Projects
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden 
+                         transform hover:-translate-y-2 transition-all duration-300"
+            >
+              <div className="relative">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-56 object-cover"
+                />
+                <div
+                  className="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 
+                              transition-opacity duration-300 flex items-center justify-center"
+                >
+                  <div className="space-x-4">
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block px-6 py-2 bg-gray-900 text-white rounded-full 
+                                hover:bg-gray-700 transition-colors duration-300"
+                    >
+                      GitHub
+                    </a>
+                    <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block px-6 py-2 bg-blue-600 text-white rounded-full 
+                                hover:bg-blue-500 transition-colors duration-300"
+                    >
+                      Live Demo
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-3 dark:text-white">
+                  {project.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 bg-gray-100 dark:bg-gray-700 
+                               text-gray-700 dark:text-gray-300 rounded-full text-sm"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           ))}
         </div>
       </div>
-    );
-  }
-  
-  export default Projects;
-  
+    </section>
+  );
+};
+
+export default Projects;

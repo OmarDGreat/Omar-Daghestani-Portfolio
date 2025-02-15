@@ -1,32 +1,99 @@
-
-import { FaGithub, FaLinkedin, FaEnvelope, FaGlobe } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 function Footer() {
+  const fadeInUp = {
+    initial: { y: 20, opacity: 0 },
+    animate: { y: 0, opacity: 1 },
+    transition: { duration: 0.5 },
+  };
+
+  const socialLinks = [
+    {
+      icon: <FaGithub size={24} />,
+      url: "https://github.com/OmarDGreat",
+      label: "GitHub",
+      hoverColor: "hover:text-white/90",
+    },
+    {
+      icon: <FaLinkedin size={24} />,
+      url: "https://www.linkedin.com/in/omar-daghestani/",
+      label: "LinkedIn",
+      hoverColor: "hover:text-[#0A66C2]",
+    },
+    {
+      icon: <FaEnvelope size={24} />,
+      url: "mailto:omar.daghest@gmail.com",
+      label: "Email",
+      hoverColor: "hover:text-[#EA4335]",
+    },
+  ];
 
   return (
-    <footer className="bg-blue-100 dark:bg-gray-900 text-black dark:text-white py-6">
-      <div className="container mx-auto flex flex-col items-center justify-center text-center">
-        <p className="text-lg font-semibold">Omar Daghestani</p>
-        <p className="text-sm text-gray-600 dark:text-gray-400">Full Stack Developer | Software Engineer</p>
+    <footer className="relative bg-blue-100 dark:bg-[#0a192f] text-black dark:text-white py-8">
+      {/* Gradient Overlay */}
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-blue-200/50 to-transparent 
+                    dark:from-[#112240]/50 dark:to-transparent"
+      ></div>
 
+      <div className="relative container mx-auto px-6">
+        <div className="max-w-4xl mx-auto">
+          {/* Main Content */}
+          <motion.div
+            className="flex flex-col items-center space-y-6"
+            initial="initial"
+            animate="animate"
+            variants={{
+              animate: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+          >
+            {/* Name and Title */}
+            <motion.div className="text-center" variants={fadeInUp}>
+              <h3 className="text-2xl font-bold mb-2 text-black dark:text-white">
+                Omar Daghestani
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Full Stack Developer | Software Engineer
+              </p>
+            </motion.div>
 
-        {/* Social Icons */}
-        <div className="flex space-x-6 mt-4">
-          <a href="https://github.com/OmarDGreat" target="_blank" rel="noopener noreferrer">
-            <FaGithub size={24} className="hover:text-gray-600 dark:hover:text-gray-400 transition-colors" />
-          </a>
-          <a href="https://www.linkedin.com/in/omar-daghestani/" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin size={24} className="hover:text-blue-500 dark:hover:text-blue-300 transition-colors" />
-          </a>
-          <a href="mailto:omar.daghest@gmail.com">
-            <FaEnvelope size={24} className="hover:text-red-500 dark:hover:text-red-300 transition-colors" />
-          </a>
+            {/* Social Links */}
+            <motion.div className="flex space-x-6" variants={fadeInUp}>
+              {socialLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`transform transition-all duration-300 
+                           hover:scale-110 ${link.hoverColor}`}
+                  aria-label={link.label}
+                >
+                  {link.icon}
+                </a>
+              ))}
+            </motion.div>
+
+            {/* Copyright */}
+            <motion.div
+              className="text-center pt-6 border-t border-gray-200 dark:border-gray-800 w-full"
+              variants={fadeInUp}
+            >
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                &copy; {new Date().getFullYear()} Omar Daghestani. All rights
+                reserved.
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                Built with React & Tailwind CSS
+              </p>
+            </motion.div>
+          </motion.div>
         </div>
-
-        {/* Copyright */}
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
-          &copy; {new Date().getFullYear()} Omar Daghestani. All rights reserved.
-        </p>
       </div>
     </footer>
   );

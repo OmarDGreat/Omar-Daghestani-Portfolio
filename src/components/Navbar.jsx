@@ -3,108 +3,224 @@ import { IoHomeOutline } from "react-icons/io5";
 import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi"; // Hamburger Icon
+import { motion, AnimatePresence } from "framer-motion";
 import Contact from "./Contact"; // Import the Contact modal
 
 const Navbar = () => {
-  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem("theme") || "dark"
+  );
   const [menuOpen, setMenuOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false); // Modal State
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => setTheme(prev => (prev === "light" ? "dark" : "light"));
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
 
-  const toggleMenu = () => setMenuOpen(prev => !prev);
+      // Update active section based on scroll position
+      const sections = ["hero", "skills", "projects"];
+      const currentSection = sections.find((section) => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleTheme = () =>
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
 
   const handleScroll = (id) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
       setMenuOpen(false); // Close menu after clicking
+      setActiveSection(id);
     }
   };
 
+  const navLinks = [
+    {
+      id: "skills",
+      label: "Skills",
+    },
+    {
+      id: "projects",
+      label: "Projects",
+    },
+  ];
+
+  const navbarClasses = `
+    fixed w-full top-0 left-0 z-50 transition-all duration-300
+    ${
+      scrolled
+        ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg"
+        : "bg-blue-100 dark:bg-gray-900"
+    }
+    text-black dark:text-white py-4
+  `;
+
   return (
     <>
-      <nav className="bg-blue-100 dark:bg-gray-900 text-black dark:text-white fixed w-full top-0 left-0 z-50 shadow-md py-4">
+      <motion.nav
+        className={navbarClasses}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <div className="max-w-screen-xl mx-auto px-6 flex justify-between items-center">
-          
           {/* Home Button */}
-          <button onClick={() => handleScroll("hero")} className="hover:text-gray-500 cursor-pointer">
-            <IoHomeOutline size={30} />
-          </button>
+          <motion.button
+            onClick={() => handleScroll("hero")}
+            className={`flex items-center space-x-2 transition-all duration-300
+                      ${
+                        activeSection === "hero"
+                          ? "text-[#4776E6] dark:text-[#8E54E9]"
+                          : "hover:text-[#4776E6] dark:hover:text-[#8E54E9]"
+                      }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <IoHomeOutline size={24} />
+            <span className="font-bold">Home</span>
+          </motion.button>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden md:flex space-x-8">
-            <button onClick={() => handleScroll("skills")} className="hover:text-gray-500 transition-colors">
-              Skills
-            </button>
-            <button onClick={() => handleScroll("projects")} className="hover:text-gray-500 transition-colors">
-              Projects
-            </button>
-            {/* Open Modal on Click */}
-            <button onClick={() => setModalOpen(true)} className="hover:text-gray-500 transition-colors">
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <motion.button
+                key={link.id}
+                onClick={() => handleScroll(link.id)}
+                className={`flex items-center space-x-1 px-3 py-2 rounded-md
+                          transition-all duration-300 relative
+                          ${
+                            activeSection === link.id
+                              ? "text-[#4776E6] dark:text-[#8E54E9]"
+                              : "hover:text-[#4776E6] dark:hover:text-[#8E54E9]"
+                          }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>{link.label}</span>
+                {activeSection === link.id && (
+                  <motion.div
+                    className="absolute bottom-0 left-0 w-full h-0.5 bg-[#4776E6] 
+                              dark:bg-[#8E54E9] rounded-full"
+                    layoutId="activeSection"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </motion.button>
+            ))}
+            <motion.button
+              onClick={() => setIsContactOpen(true)}
+              className="px-4 py-2 rounded-md bg-[#4776E6] dark:bg-[#8E54E9] 
+                        text-white hover:opacity-90 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               Contact
-            </button>
+            </motion.button>
           </div>
 
-          {/* Desktop Dark Mode Toggle (Hidden on Mobile) */}
-          <div className="hidden md:block cursor-pointer">
-            <button onClick={toggleTheme}>
-              {theme === "light" ? <CiLight size={30} /> : <MdDarkMode size={30} />}
-            </button>
+          {/* Theme Toggle and Mobile Menu */}
+          <div className="flex items-center space-x-4">
+            <motion.button
+              onClick={toggleTheme}
+              className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 
+                        transition-all duration-300"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={theme}
+                  initial={{ rotate: -180, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 180, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {theme === "light" ? (
+                    <CiLight size={24} />
+                  ) : (
+                    <MdDarkMode size={24} />
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </motion.button>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              onClick={toggleMenu}
+              className="md:hidden p-2 rounded-md hover:bg-gray-200 
+                        dark:hover:bg-gray-800 transition-all duration-300"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <GiHamburgerMenu size={24} />
+            </motion.button>
           </div>
 
-          {/* Mobile Menu (Hamburger) */}
-          <div className="md:hidden relative">
-            <button onClick={toggleMenu} className="btn btn-ghost">
-              <GiHamburgerMenu size={30} />
-            </button>
-            
-            {/* Dropdown Menu */}
+          {/* Mobile Menu */}
+          <AnimatePresence>
             {menuOpen && (
-              <ul className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg p-3">
-                <li>
-                  <button onClick={() => handleScroll("skills")} className="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 block w-full">
-                    Skills
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => handleScroll("projects")} className="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 block w-full">
-                    Projects
-                  </button>
-                </li>
-                <li>
-                  {/* Open Modal on Click in Mobile Menu */}
-                  <button onClick={() => setModalOpen(true)} className="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 block w-full">
-                    Contact
-                  </button>
-                </li>
-                <li className="border-t border-gray-300 dark:border-gray-700 mt-2 pt-2">
-                  {/* Theme Toggle Inside Hamburger */}
-                  <button onClick={toggleTheme} className="flex items-center justify-between w-full px-2 py-2 hover:bg-gray-200 dark:hover:bg-gray-700">
-                    {theme === "light" ? (
-                      <>
-                        <CiLight size={24} /> <span className="ml-2">Light Mode</span>
-                      </>
-                    ) : (
-                      <>
-                        <MdDarkMode size={24} /> <span className="ml-2">Dark Mode</span>
-                      </>
-                    )}
-                  </button>
-                </li>
-              </ul>
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-800 
+                          shadow-xl rounded-xl overflow-hidden border border-gray-200 
+                          dark:border-gray-700 mr-6"
+              >
+                {navLinks.map((link) => (
+                  <motion.button
+                    key={link.id}
+                    onClick={() => handleScroll(link.id)}
+                    className={`w-full px-4 py-3 flex items-center space-x-2
+                              transition-colors duration-300
+                              ${
+                                activeSection === link.id
+                                  ? "text-[#4776E6] dark:text-[#8E54E9] bg-gray-100 dark:bg-gray-700"
+                                  : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                              }`}
+                  >
+                    <span>{link.label}</span>
+                  </motion.button>
+                ))}
+                <motion.button
+                  onClick={() => setIsContactOpen(true)}
+                  className="w-full px-4 py-3 text-left hover:bg-gray-100 
+                           dark:hover:bg-gray-700 transition-colors duration-300"
+                >
+                  Contact
+                </motion.button>
+              </motion.div>
             )}
-          </div>
+          </AnimatePresence>
         </div>
-      </nav>
+      </motion.nav>
 
-      {/* Contact Modal */}
-      {modalOpen && <Contact closeModal={() => setModalOpen(false)} />}
+      <Contact isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </>
   );
 };
