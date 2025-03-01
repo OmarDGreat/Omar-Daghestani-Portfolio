@@ -5,20 +5,19 @@ const Projects = () => {
       description:
         "A full-featured online store with shopping cart, payment processing via Stripe, and user authentication. Includes admin dashboard for product management.",
       technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      githubLink: "https://github.com/...",
-      liveLink: "https://...",
-      image:
-        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+      githubLink: "https://github.com/OmarDGreat/d424",
+      liveLink: "https://ecom.omar-daghestani.com/",
+      image: "/ecommerce.png",
     },
     {
-      title: "Real-Time Chat App",
+      title: "WanderQuest Travel Planner",
       description:
-        "Instant messaging application with real-time updates, file sharing, and group chat functionality. Features end-to-end encryption for secure communication.",
-      technologies: ["React", "Socket.io", "Firebase", "WebRTC"],
-      githubLink: "https://github.com/...",
-      liveLink: "https://...",
+        "A comprehensive travel planning application with itinerary creation, weather forecasting, and destination discovery features. Includes user authentication, trip organization, and interactive maps.",
+      technologies: ["React", "Node.js", "PostgreSQL", "Express"],
+      githubLink: "https://github.com/OmarDGreat/d424",
+      liveLink: "https://wanderquest.omar-daghestani.com/",
       image:
-        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80",
+        "/wanderQuest.png",
     },
     {
       title: "Task Management System",
