@@ -40,24 +40,46 @@ function Hero() {
     },
   };
 
+  const handleEmailClick = (e) => {
+    e.preventDefault();
+
+    // Copy email to clipboard
+    navigator.clipboard.writeText("omar.daghest@gmail.com").then(
+      () => {
+        // Show a temporary tooltip or notification
+        alert("Email address copied to clipboard: omar.daghest@gmail.com");
+      },
+      (err) => {
+        console.error("Could not copy email: ", err);
+        alert("Email address: omar.daghest@gmail.com");
+      }
+    );
+  };
+
   const socialLinks = [
     {
       icon: <FaGithub size={24} />,
       url: "https://github.com/OmarDGreat",
       label: "GitHub",
       color: "hover:text-white/90",
+      target: "_blank",
+      onClick: null,
     },
     {
       icon: <FaLinkedin size={24} />,
       url: "https://linkedin.com/in/omar-daghestani",
       label: "LinkedIn",
       color: "hover:text-[#0A66C2]",
+      target: "_blank",
+      onClick: null,
     },
     {
       icon: <HiMail size={24} />,
-      url: "mailto:omar.daghest@gmail.com",
+      url: "#",
       label: "Email",
       color: "hover:text-[#EA4335]",
+      target: "",
+      onClick: handleEmailClick,
     },
   ];
 
@@ -158,8 +180,9 @@ function Hero() {
             <a
               key={index}
               href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
+              target={link.target}
+              rel={link.target === "_blank" ? "noopener noreferrer" : ""}
+              onClick={link.onClick}
               className={`p-4 rounded-full bg-white dark:bg-[#112240] shadow-md 
                        hover:shadow-xl transform hover:-translate-y-1 transition-all 
                        duration-300 border border-gray-200 dark:border-[#233554] ${link.color}`}

@@ -1,6 +1,16 @@
 const Projects = () => {
   const projects = [
     {
+      title: "WanderQuest Travel Planner",
+      description:
+        "A comprehensive travel planning application with itinerary creation, weather forecasting, and destination discovery features. Includes user authentication, trip organization, and interactive maps.",
+      technologies: ["React", "Node.js", "PostgreSQL", "Express"],
+      githubLink: "https://github.com/OmarDGreat/d424",
+      liveLink: "https://wanderquest.omar-daghestani.com/",
+      image: "/wanderQuest.png",
+      status: "completed",
+    },
+    {
       title: "E-Commerce Platform",
       description:
         "A full-featured online store with shopping cart, payment processing via Stripe, and user authentication. Includes admin dashboard for product management.",
@@ -8,26 +18,18 @@ const Projects = () => {
       githubLink: "https://github.com/OmarDGreat/d424",
       liveLink: "https://ecom.omar-daghestani.com/",
       image: "/ecommerce.png",
-    },
-    {
-      title: "WanderQuest Travel Planner",
-      description:
-        "A comprehensive travel planning application with itinerary creation, weather forecasting, and destination discovery features. Includes user authentication, trip organization, and interactive maps.",
-      technologies: ["React", "Node.js", "PostgreSQL", "Express"],
-      githubLink: "https://github.com/OmarDGreat/d424",
-      liveLink: "https://wanderquest.omar-daghestani.com/",
-      image:
-        "/wanderQuest.png",
+      status: "completed",
     },
     {
       title: "Task Management System",
       description:
         "Project management tool with drag-and-drop task organization, team collaboration features, and progress tracking dashboards.",
       technologies: ["React", "Redux", "PostgreSQL", "Express"],
-      githubLink: "https://github.com/...",
-      liveLink: "https://...",
+      githubLink: "#",
+      liveLink: "#",
       image:
         "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+      status: "in-progress",
     },
     {
       title: "Weather Dashboard",
@@ -80,31 +82,39 @@ const Projects = () => {
                   alt={project.title}
                   className="w-full h-56 object-cover"
                 />
-                <div
-                  className="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 
+                {project.status === "completed" ? (
+                  <div
+                    className="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 
                               transition-opacity duration-300 flex items-center justify-center"
-                >
-                  <div className="space-x-4">
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block px-6 py-2 bg-gray-900 text-white rounded-full 
+                  >
+                    <div className="space-x-4">
+                      <a
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block px-6 py-2 bg-gray-900 text-white rounded-full 
                                 hover:bg-gray-700 transition-colors duration-300"
-                    >
-                      GitHub
-                    </a>
-                    <a
-                      href={project.liveLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block px-6 py-2 bg-blue-600 text-white rounded-full 
+                      >
+                        GitHub
+                      </a>
+                      <a
+                        href={project.liveLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block px-6 py-2 bg-blue-600 text-white rounded-full 
                                 hover:bg-blue-500 transition-colors duration-300"
-                    >
-                      Live Demo
-                    </a>
+                      >
+                        Live Demo
+                      </a>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+                    <span className="px-4 py-2 bg-yellow-500 text-white font-bold rounded-full">
+                      Work in Progress
+                    </span>
+                  </div>
+                )}
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-3 dark:text-white">
