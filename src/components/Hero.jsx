@@ -43,25 +43,19 @@ function Hero() {
   const socialLinks = [
     {
       icon: <FaGithub size={24} />,
-      url: "https://github.com/yourusername",
+      url: "https://github.com/OmarDGreat",
       label: "GitHub",
       color: "hover:text-white/90",
     },
     {
       icon: <FaLinkedin size={24} />,
-      url: "https://linkedin.com/in/yourusername",
+      url: "https://linkedin.com/in/omar-daghestani",
       label: "LinkedIn",
       color: "hover:text-[#0A66C2]",
     },
     {
-      icon: <FaTwitter size={24} />,
-      url: "https://twitter.com/yourusername",
-      label: "Twitter",
-      color: "hover:text-[#1DA1F2]",
-    },
-    {
       icon: <HiMail size={24} />,
-      url: "mailto:your.email@example.com",
+      url: "mailto:omar.daghest@gmail.com",
       label: "Email",
       color: "hover:text-[#EA4335]",
     },
