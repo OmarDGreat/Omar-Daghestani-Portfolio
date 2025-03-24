@@ -5,7 +5,7 @@ const Projects = () => {
       description:
         "A comprehensive travel planning application with itinerary creation, weather forecasting, and destination discovery features. Includes user authentication, trip organization, and interactive maps.",
       technologies: ["React", "Node.js", "PostgreSQL", "Express"],
-      githubLink: "https://github.com/OmarDGreat/d424",
+      githubLink: "https://github.com/OmarDGreat/wanderquest",
       liveLink: "https://wanderquest.omar-daghestani.com/",
       image: "/wanderQuest.png",
       status: "completed",
